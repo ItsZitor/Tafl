@@ -19,8 +19,8 @@ import java.util.List;
 
 public class Tablero {
 	// Tamaño del tablero
-	private static final int FILAS = 7;
-    private static final int COLUMNAS = 7;
+	static final int NUMERO_FILAS = 7;
+    static final int NUMERO_COLUMNAS = 7;
     
     // Representación del tablero como matriz de celdas
     private Celda[][] celdas;
@@ -30,7 +30,7 @@ public class Tablero {
      * Constructor de la clase Tablero. Inicializa el tablero llamando al método `inicializarTablero()`.
      */
     public Tablero() {
-        celdas = new Celda[FILAS][COLUMNAS];
+        celdas = new Celda[NUMERO_FILAS][NUMERO_COLUMNAS];
         inicializarTablero();
     }
 
@@ -39,8 +39,8 @@ public class Tablero {
      */
     private void inicializarTablero() {
     	// Inicializa todas las celdas como normales por defecto
-        for (int i = 0; i < FILAS; i++) {
-            for (int j = 0; j < COLUMNAS; j++) {
+        for (int i = 0; i < NUMERO_FILAS; i++) {
+            for (int j = 0; j < NUMERO_COLUMNAS; j++) {
                 celdas[i][j] = new Celda(new Coordenada(i, j));
             }
         }
@@ -64,7 +64,7 @@ public class Tablero {
      * @return         Tipo de celda en la posición especificada.
      */
     public TipoCelda consultarTipoCeldaEnPosicion(int fila, int columna) {
-        if (fila >= 0 && fila < FILAS && columna >= 0 && columna < COLUMNAS) {
+        if (fila >= 0 && fila < NUMERO_FILAS && columna >= 0 && columna < NUMERO_COLUMNAS) {
             return celdas[fila][columna].consultarTipoCelda();
         }
         return null;
@@ -105,8 +105,8 @@ public class Tablero {
      */
     public Tablero clonar() {
         Tablero tableroClonado = new Tablero();
-        for (int i = 0; i < FILAS; i++) {
-            for (int j = 0; j < COLUMNAS; j++) {
+        for (int i = 0; i < NUMERO_FILAS; i++) {
+            for (int j = 0; j < NUMERO_COLUMNAS; j++) {
                 // Utilizo el método clonar de la clase Celda para clonar cada celda
                 tableroClonado.celdas[i][j] = this.celdas[i][j].clonar();
                 if (this.celdas[i][j].consultarPieza() != null) {
@@ -127,7 +127,7 @@ public class Tablero {
      * @param coordenada  Coordenada donde colocar la pieza.
      */
     public void colocar(Pieza pieza, Coordenada coordenada) {
-        if (coordenadaEnTablero(coordenada) && pieza != null) {
+        if (estaEnTablero(coordenada) && pieza != null) {
             celdas[coordenada.fila()][coordenada.columna()].colocar(pieza);
         }
     }
@@ -141,7 +141,7 @@ public class Tablero {
      *                   Devuelve null si la coordenada está fuera del tablero.
      */
     public Celda consultarCelda(Coordenada coordenada) {
-        if (coordenadaEnTablero(coordenada)) {
+        if (estaEnTablero(coordenada)) {
             return celdas[coordenada.fila()][coordenada.columna()].clonar();
         }
         return null;
@@ -154,11 +154,11 @@ public class Tablero {
      * @return Array de celdas clonadas del tablero.
      */
     public Celda[] consultarCeldas() {
-        Celda[] celdasClonadas = new Celda[FILAS * COLUMNAS];
+        Celda[] celdasClonadas = new Celda[NUMERO_FILAS * NUMERO_COLUMNAS];
         int index = 0;
 
-        for (int fila = 0; fila < FILAS; fila++) {
-            for (int columna = 0; columna < COLUMNAS; columna++) {
+        for (int fila = 0; fila < NUMERO_FILAS; fila++) {
+            for (int columna = 0; columna < NUMERO_COLUMNAS; columna++) {
                 celdasClonadas[index++] = celdas[fila][columna].clonar();
             }
         }
@@ -177,7 +177,7 @@ public class Tablero {
     public Celda[] consultarCeldasContiguas(Coordenada coordenada) {
         int contador=0;
         
-        if (!coordenadaEnTablero(coordenada)) {
+        if (!estaEnTablero(coordenada)) {
             return new Celda[0]; // Devuelve un array vacío si las coordenadas no están en el tablero
         }
 
@@ -190,7 +190,7 @@ public class Tablero {
         };
         
         for (int i = 0; i < coordenadasContiguas.length; i++) {
-            if (coordenadaEnTablero(coordenadasContiguas[i])) {
+            if (estaEnTablero(coordenadasContiguas[i])) {
                 Celda celdaContigua = consultarCelda(coordenadasContiguas[i]);
                 if (celdaContigua != null) {
                     contador++;
@@ -204,7 +204,7 @@ public class Tablero {
         int contador2 = 0;
 
         for (Coordenada contigua : coordenadasContiguas) {
-            if (coordenadaEnTablero(contigua)) {
+            if (estaEnTablero(contigua)) {
                 celdasContiguas[contador2] = consultarCelda(contigua);
                 contador2++;
             }
@@ -222,7 +222,7 @@ public class Tablero {
      *                   Devuelve un array vacío si las coordenadas no están en el tablero.
      */
     public Celda[] consultarCeldasContiguasEnHorizontal(Coordenada coordenada) {
-        if (!coordenadaEnTablero(coordenada)) {
+        if (!estaEnTablero(coordenada)) {
             return new Celda[0];
         }
 
@@ -247,7 +247,7 @@ public class Tablero {
      *                   Devuelve un array vacío si las coordenadas no están en el tablero.
      */
     public Celda[] consultarCeldasContiguasEnVertical(Coordenada coordenada) {
-        if (!coordenadaEnTablero(coordenada)) {
+        if (!estaEnTablero(coordenada)) {
             return new Celda[0];
         }
 
@@ -298,8 +298,8 @@ public class Tablero {
     public int consultarNumeroPiezas(TipoPieza tipoPieza) {
         int contador = 0;
 
-        for (int fila = 0; fila < FILAS; fila++) {
-            for (int columna = 0; columna < COLUMNAS; columna++) {
+        for (int fila = 0; fila < NUMERO_FILAS; fila++) {
+            for (int columna = 0; columna < NUMERO_COLUMNAS; columna++) {
                 Celda celda = celdas[fila][columna];
                 if (celda.consultarPieza() != null && celda.consultarPieza().consultarTipoPieza() == tipoPieza) {
                     contador++;
@@ -317,7 +317,7 @@ public class Tablero {
      * @param coordenada Coordenada de la pieza a eliminar.
      */
     public void eliminarPieza(Coordenada coordenada) {
-        if (coordenadaEnTablero(coordenada)) {
+        if (estaEnTablero(coordenada)) {
             celdas[coordenada.fila()][coordenada.columna()].eliminarPieza();
         }
     }
@@ -331,7 +331,7 @@ public class Tablero {
      *                   Devuelve null si la coordenada está fuera del tablero.
      */
     public Celda obtenerCelda(Coordenada coordenada) {
-        if (coordenadaEnTablero(coordenada)) {
+        if (estaEnTablero(coordenada)) {
             return celdas[coordenada.fila()][coordenada.columna()];
         }
         return null;
@@ -344,9 +344,9 @@ public class Tablero {
      * @param coordenada Coordenada a verificar.
      * @return           true si la coordenada está dentro del tablero, false en caso contrario.
      */
-    public boolean coordenadaEnTablero(Coordenada coordenada) {
-        return coordenada != null && coordenada.fila() >= 0 && coordenada.fila() < FILAS
-                && coordenada.columna() >= 0 && coordenada.columna() < COLUMNAS;
+    public boolean estaEnTablero(Coordenada coordenada) {
+        return coordenada != null && coordenada.fila() >= 0 && coordenada.fila() < NUMERO_FILAS
+                && coordenada.columna() >= 0 && coordenada.columna() < NUMERO_COLUMNAS;
     }
     
     @Override
@@ -365,9 +365,9 @@ public class Tablero {
     @Override
     public String toString() {
         StringBuilder resultado = new StringBuilder();
-        for (int i = FILAS - 1; i >= 0; i--) {
+        for (int i = NUMERO_FILAS - 1; i >= 0; i--) {
             resultado.append(i + 1).append(" ");
-            for (int j = 0; j < COLUMNAS; j++) {
+            for (int j = 0; j < NUMERO_COLUMNAS; j++) {
                 resultado.append(celdas[i][j].toString()).append(" ");
             }
             resultado.append("\n");
