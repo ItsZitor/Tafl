@@ -43,6 +43,15 @@ public enum TipoPieza {
         this.caracter = letra;
         this.color = color;
     }
+    
+    /**
+     * Consulta y devuelve el color de la pieza.
+     * 
+     * @return Color de la pieza, que puede ser blanco o negro.
+     */
+    public Color consultarColor() {
+        return color;
+    }
 
     /**
      * Devuelve el carácter asociado al tipo de pieza.
@@ -53,12 +62,5 @@ public enum TipoPieza {
         return caracter;
     }
 
-    /**
-     * Consulta y devuelve el color de la pieza.
-     * 
-     * @return Color de la pieza, que puede ser blanco o negro.
-     */
-    public Color consultarColor() {
-        return color;
-    }
+    
 }
