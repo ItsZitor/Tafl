@@ -25,7 +25,7 @@ public class ArbitroArdRi {
 
     /**
      * Coloca las piezas correspondientes a la configuración de inicio del juego (variante Ard-Ri).
-     * Inicializa siempre el turno para el atacante con piezas negras.
+     * Inicializa siempre el turno para el atacante con piezas negras
      *
      * @throws CoordenadasIncorrectasException Si alguna coordenada está fuera del tablero.
      */
