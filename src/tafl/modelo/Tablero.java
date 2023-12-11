@@ -464,6 +464,11 @@ public class Tablero {
         return resultado.toString();
     }
 
+	public void colocarPiezas(TipoPieza[][] configuracionInicial, TipoPieza atacante) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
 
