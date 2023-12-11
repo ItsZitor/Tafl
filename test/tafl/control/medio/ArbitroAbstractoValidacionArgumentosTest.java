@@ -134,6 +134,7 @@ public abstract class ArbitroAbstractoValidacionArgumentosTest {
 	 * Comprueba que mover con jugada con coordenada origen incorrecta provoca excepción.
 	 * 
 	 * @see tafl.control.Arbitro#mover(Jugada)
+	 * @version 1.0.0.1
 	 */
 	@DisplayName("Comprueba que mover con jugada con coordenada origen incorrecta lanza la excepción adecuada.")
 	@Test
@@ -144,13 +145,14 @@ public abstract class ArbitroAbstractoValidacionArgumentosTest {
 		Jugada jugadaIncorrecta = new Jugada(origenIncorrecto, destinoCorrecto);
 		// when
 		// then
-		assertThrows(IllegalArgumentException.class, () -> arbitro.mover(jugadaIncorrecta));
+		assertThrows(CoordenadasIncorrectasException.class, () -> arbitro.mover(jugadaIncorrecta)); // Changed
 	}
 	
 	/**
 	 * Comprueba que mover con jugada con coordenada destino incorrecta provoca excepción.
 	 * 
 	 * @see tafl.control.Arbitro#mover(Jugada)
+	 * @version 1.0.0.1
 	 */
 	@DisplayName("Comprueba que mover con jugada con coordenada destino incorrecta lanza la excepción adecuada.")
 	@Test
@@ -161,13 +163,14 @@ public abstract class ArbitroAbstractoValidacionArgumentosTest {
 		Jugada jugadaIncorrecta = new Jugada(origenCorrecto, destinoIncorrecto);
 		// when
 		// then
-		assertThrows(IllegalArgumentException.class, () -> arbitro.mover(jugadaIncorrecta));
+		assertThrows(CoordenadasIncorrectasException.class, () -> arbitro.mover(jugadaIncorrecta)); // Changed
 	}
 	
 	/**
 	 * Comprueba que mover con jugada con ambas coordenadas incorrectas provoca excepción.
 	 * 
 	 * @see tafl.control.Arbitro#mover(Jugada)
+	 * @version 1.0.0.1
 	 */
 	@DisplayName("Comprueba que mover con jugada con ambas coordenadas incorrectas lanza la excepción adecuada.")
 	@Test
@@ -178,7 +181,7 @@ public abstract class ArbitroAbstractoValidacionArgumentosTest {
 		Jugada jugadaIncorrecta = new Jugada(origenIncorrecto, destinoIncorrecto);
 		// when
 		// then
-		assertThrows(IllegalArgumentException.class, () -> arbitro.mover(jugadaIncorrecta));
+		assertThrows(CoordenadasIncorrectasException.class, () -> arbitro.mover(jugadaIncorrecta)); // Changed
 	}
 	
 	

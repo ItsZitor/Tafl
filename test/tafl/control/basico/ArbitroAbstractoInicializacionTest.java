@@ -1,6 +1,7 @@
 package tafl.control.basico;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Timeout.ThreadMode.SEPARATE_THREAD;
@@ -59,6 +60,8 @@ public abstract class ArbitroAbstractoInicializacionTest {
 		/**
 		 * Comprobacion de inicialización correcta del tablero, sin colocar ninguna
 		 * pieza, con un tablero vacío y sin turno incialmente. Aplicable a ambos tipos de juego.
+		 * 
+		 * @version 1.0.0.1
 		 */
 		// @formatter:off
 		 /* Partimos de un tablero vacío como el que se muestra:	
@@ -82,7 +85,7 @@ public abstract class ArbitroAbstractoInicializacionTest {
 					() -> assertThat("No debería haber piezas defensoras",
 							tablero.consultarNumeroPiezas(TipoPieza.DEFENSOR), is(0)),
 					() -> assertThat("No debería haber rey", tablero.consultarNumeroPiezas(TipoPieza.REY), is(0)),
-					() -> assertThat("El turno no se ha inicializado.", arbitro.consultarTurno(), is(Color.NEGRO)));
+					() -> assertThat("El turno se ha inicializado cuando debería valer nulo.", arbitro.consultarTurno(), is(nullValue()))); // Changed
 		}
 	}
 

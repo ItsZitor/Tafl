@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Timeout;
 public class TipoCeldaTest {
 
 	/**
-	 * Comprobar el correcto número de valores.
+	 * Comprueba el correcto número de valores.
 	 */
 	@DisplayName("Comprobar el número de valores definidos.")
 	@Test

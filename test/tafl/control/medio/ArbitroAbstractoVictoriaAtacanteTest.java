@@ -25,7 +25,7 @@ import tafl.util.TipoPieza;
  * 
  * @author <a href="rmartico@ubu.es">Raúl Marticorena</a>
  * @since 1.0
- * @version 1.0
+ * @version 1.0.0.1
  */
 @DisplayName("Tests del arbitro sobre victorias del atacante rodeando al rey.")
 @Timeout(value = 2, unit = TimeUnit.SECONDS, threadMode = SEPARATE_THREAD) // Time out global para todos los tests salvo los de ciclo de vida
@@ -59,195 +59,6 @@ public abstract class ArbitroAbstractoVictoriaAtacanteTest {
 				() -> assertThat("El turno debería ser del jugado atacante.", arbitro.consultarTurno(),
 						is(Color.NEGRO)));
 	}
-
-	/**
-	 * Victoria de atacante rodeando al rey por las cuatro celdas contiguas cuando está en el trono
-	 * o por tres atacantes y el trono cuando está situado fuera del trono y contiguo al mismo.
-	 */
-	@Nested
-	@DisplayName("Tests para comprobar victoria del atacante si rodea con cuatro atacantes o tres atacantes y el trono al rey.")
-	class VictoriasRodeandoAlReyPorCuatroLadosConCuatroAtacantesOTresAtacantesYTrono {
-
-		/**
-		 * Comprueba victoria rodeando al rey en el trono con cuatro atacantes.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		@Test
-		void comprobarVictoriaRodeandoAlReyEnElTrono()  throws CoordenadasIncorrectasException {
-			rodearAlReyConCuatroAtacantes();
-			comprobarReyRodeado();
-		}
-
-		/**
-		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
-		 * norte.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		@Test
-		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlNorte()  throws CoordenadasIncorrectasException{
-			rodearAlReyConTresAtacantesYCeldaDelTronoAlNorte();
-			comprobarReyRodeado();
-		}
-
-		/**
-		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
-		 * oeste.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		@Test
-		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlOeste()  throws CoordenadasIncorrectasException{
-			rodearAlReyConTresAtacantesYCeldaDelTronoAlOeste();
-			comprobarReyRodeado();
-		}
-
-		/**
-		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
-		 * este.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		@Test
-		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlEste()  throws CoordenadasIncorrectasException{
-			rodearAlReyConTresAtacantesYCeldaDelTronoAlEste();
-			comprobarReyRodeado();
-		}
-
-		/**
-		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
-		 * sur.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		@Test
-		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlSur()  throws CoordenadasIncorrectasException{
-			rodearAlReyConTresAtacantesYCeldaDelTronoAlSur();
-			comprobarReyRodeado();
-		}
-
-		/**
-		 * Coloca piezas rodeando al rey de atacantes.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		// @formatter:off
-		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
-		 * 7 - - - - - - -  
-		 * 6 - - - - - - - 
-		 * 5 - - - A - - - 
-		 * 4 - - A R A - -
-		 * 3 - - - A - - -
-		 * 2 - - - - - - - 
-		 * 1 - - - - - - -
-		 *   a b c d e f g   
-		 */
-		 // @formatter:on
-		void rodearAlReyConCuatroAtacantes()  throws CoordenadasIncorrectasException {
-			arbitro.colocarPiezas(
-					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE,
-							TipoPieza.REY },
-					new int[][] { { 2, 3 }, { 3, 2 }, { 3, 4 }, { 4, 3 }, { 3, 3 } }, Color.NEGRO);
-		}
-
-		/**
-		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		// @formatter:off
-		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
-		 * 7 - - - - - - -  
-		 * 6 - - - - - - - 
-		 * 5 - - - - - - - 
-		 * 4 - - - - - - -
-		 * 3 - - A R A - -
-		 * 2 - - - A - - - 
-		 * 1 - - - - - - -
-		 *   a b c d e f g   
-		 */
-		 // @formatter:on
-		void rodearAlReyConTresAtacantesYCeldaDelTronoAlNorte()  throws CoordenadasIncorrectasException {
-			arbitro.colocarPiezas(
-					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
-					new int[][] { { 4, 2 }, { 4, 4 }, { 5, 3 }, { 4, 3 } }, Color.NEGRO);
-		}
-
-		/**
-		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono al
-		 * oeste.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		// @formatter:off
-		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
-		 * 7 - - - - - - -  
-		 * 6 - - - - - - - 
-		 * 5 - - - - A - -
-		 * 4 - - - - R A -
-		 * 3 - - - - A - -
-		 * 2 - - - - - - - 
-		 * 1 - - - - - - -
-		 *   a b c d e f g   
-		 */
-		 // @formatter:on
-		void rodearAlReyConTresAtacantesYCeldaDelTronoAlOeste()  throws CoordenadasIncorrectasException {
-			arbitro.colocarPiezas(
-					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
-					new int[][] { { 2, 4 }, { 3, 5 }, { 4, 4 }, { 3, 4 } }, Color.NEGRO);
-		}
-
-		/**
-		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono al este.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		// @formatter:off
-		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
-		 * 7 - - - - - - -  
-		 * 6 - - - - - - - 
-		 * 5 - - A - - - -
-		 * 4 - A R - - - -
-		 * 3 - - A - - - -
-		 * 2 - - - - - - - 
-		 * 1 - - - - - - -
-		 *   a b c d e f g   
-		 */
-		 // @formatter:on
-		void rodearAlReyConTresAtacantesYCeldaDelTronoAlEste()  throws CoordenadasIncorrectasException {
-			arbitro.colocarPiezas(
-					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
-					new int[][] { { 2, 2 }, { 3, 1 }, { 4, 2 }, { 3, 2 } }, Color.NEGRO);
-		}
-
-		/**
-		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono al sur.
-		 * 
-		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
-		 */
-		// @formatter:off
-		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
-		 * 7 - - - - - - -  
-		 * 6 - - - A - - - 
-		 * 5 - - A R A - -
-		 * 4 - - - - - - -
-		 * 3 - - - - - - -
-		 * 2 - - - - - - - 
-		 * 1 - - - - - - -
-		 *   a b c d e f g   
-		 */
-		 // @formatter:on
-		void rodearAlReyConTresAtacantesYCeldaDelTronoAlSur()  throws CoordenadasIncorrectasException {
-			arbitro.colocarPiezas(
-					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
-					new int[][] { { 1, 3 }, { 2, 2 }, { 2, 4 }, { 2, 3 } }, Color.NEGRO);
-		}
-	}
-
-	
-
-	
 
 	/**
 	 * No victoria de atacante rodeando al rey contra el trono.
@@ -357,6 +168,7 @@ public abstract class ArbitroAbstractoVictoriaAtacanteTest {
 		/**
 		 * Coloca pieza rodeando al rey con un atacante y trono al norte.
 		 * 
+		 * @version 1.0.0.1
 		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
 		 */
 		// @formatter:off
@@ -373,7 +185,7 @@ public abstract class ArbitroAbstractoVictoriaAtacanteTest {
 		// @formatter:on
 		void rodearAlReyConUnAtacanteYTronoEnNorte()  throws CoordenadasIncorrectasException {
 			arbitro.colocarPiezas(new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.REY },
-					new int[][] { { 4, 3 }, { 6, 3 } }, Color.NEGRO);
+					new int[][] { { 6, 3 }, { 4, 3 } }, Color.NEGRO); // Bug corregido
 			// necesitamos mover para que pueda conocer el último movimiento
 			arbitro.mover(fabricarJugada(tablero, 6, 3, 5, 3));
 		}
@@ -480,6 +292,336 @@ public abstract class ArbitroAbstractoVictoriaAtacanteTest {
 					new int[][] { { 2, 3 }, {5, 3}, { 3, 3 } }, Color.NEGRO);
 			// necesitamos mover para capturar y que pueda conocer el último movimiento
 			arbitro.mover(fabricarJugada(tablero, 5, 3, 4, 3));
+		}
+	}
+	
+	/**
+	 * Victoria de atacante rodeando al rey por las cuatro celdas contiguas cuando está en el trono.
+	 * 
+	 * @version 1.0.0.1
+	 */
+	@Nested
+	@DisplayName("Tests para comprobar victoria del atacante si rodea con cuatro atacantes al rey cuando está en el trono.")
+	class VictoriasRodeandoAlReyPorCuatroLadosConCuatroAtacantes {
+		
+		/**
+		 * Comprueba victoria rodeando al rey en el trono con cuatro atacantes por el norte.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por cuatro atacantes moviendo por el norte.")
+		void comprobarVictoriaRodeandoAlReyEnElTronoAlNorte() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConCuatroAtacantesAlNorte();
+			comprobarReyRodeado();
+		}
+
+		/**
+		 * Comprueba victoria rodeando al rey en el trono con cuatro atacantes por el sur.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por cuatro atacantes moviendo por el sur.")
+		void comprobarVictoriaRodeandoAlReyEnElTronoAlSur() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConCuatroAtacantesAlSur();
+			comprobarReyRodeado();
+		}
+		
+		/**
+		 * Comprueba victoria rodeando al rey en el trono con cuatro atacantes por el este.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por cuatro atacantes moviendo por el este.")
+		void comprobarVictoriaRodeandoAlReyEnElTronoAlEste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConCuatroAtacantesAlEste();
+			comprobarReyRodeado();
+		}
+		
+		/**
+		 * Comprueba victoria rodeando al rey en el trono con cuatro atacantes por el oeste.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por cuatro atacantes moviendo por el oeste.")
+		void comprobarVictoriaRodeandoAlReyEnElTronoAlOeste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConCuatroAtacantesAlOeste();
+			comprobarReyRodeado();
+		}
+		
+		/**
+		 * Coloca piezas rodeando al rey de atacantes cerrando por el norte.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - - - - -  
+		 * 6 - - - A - - - 
+		 * 5 - - - - - - - 
+		 * 4 - - A R A - -
+		 * 3 - - - A - - -
+		 * 2 - - - - - - - 
+		 * 1 - - - - - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConCuatroAtacantesAlNorte() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE,
+							TipoPieza.REY },
+					new int[][] { { 1, 3 }, { 3, 2 }, { 3, 4 }, { 4, 3 }, { 3, 3 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 1, 3, 2, 3));
+		}
+
+		/**
+		 * Coloca piezas rodeando al rey de atacantes cerrando por el sur.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - - - - -  
+		 * 6 - - - - - - - 
+		 * 5 - - - A - - - 
+		 * 4 - - A R A - -
+		 * 3 - - - - - - -
+		 * 2 - - - A - - - 
+		 * 1 - - - - - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConCuatroAtacantesAlSur() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE,
+							TipoPieza.REY },
+					new int[][] { { 2, 3 }, { 3, 2 }, { 3, 4 }, { 5, 3 }, { 3, 3 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 5, 3, 4, 3));
+		}
+		
+		/**
+		 * Coloca piezas rodeando al rey de atacantes cerrando por el este.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - - - - -  
+		 * 6 - - - - - - - 
+		 * 5 - - - A - - - 
+		 * 4 - - A R - A -
+		 * 3 - - - A - - -
+		 * 2 - - - - - - - 
+		 * 1 - - - - - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConCuatroAtacantesAlEste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE,
+							TipoPieza.REY },
+					new int[][] { { 2, 3 }, { 3, 2 }, { 3, 5 }, { 4, 3 }, { 3, 3 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 3, 5, 3, 4));
+		}
+		
+		/**
+		 * Coloca piezas rodeando al rey de atacantes cerrando por el oeste.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - - - - -  
+		 * 6 - - - - - - - 
+		 * 5 - - - A - - - 
+		 * 4 - A - R A - -
+		 * 3 - - - A - - -
+		 * 2 - - - - - - - 
+		 * 1 - - - - - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConCuatroAtacantesAlOeste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE,
+							TipoPieza.REY },
+					new int[][] { { 2, 3 }, { 3, 1 }, { 3, 4 }, { 4, 3 }, { 3, 3 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 3, 1, 3, 2));
+		}
+	}
+	
+	/**
+	 * Victoria de atacante rodeando al rey por tres atacantes y el trono 
+	 * cuando está situado fuera del trono y contiguo al mismo.
+	 * 
+	 * @version 1.0.0.1
+	 */
+	@Nested
+	@DisplayName("Tests para comprobar victoria del atacante si rodea con tres atacantes y el trono al rey.")
+	class VictoriasRodeandoAlReyPorTresAtacantesYTrono {	
+		
+
+		/**
+		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
+		 * norte.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por tres atacantes y el trono por el norte.")
+		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlNorte() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConTresAtacantesYCeldaDelTronoAlNorte();
+			comprobarReyRodeado();
+		}
+
+		/**
+		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
+		 * oeste.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por tres atacantes y el trono por el oeste.")
+		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlOeste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConTresAtacantesYCeldaDelTronoAlOeste();
+			comprobarReyRodeado();
+		}
+
+		/**
+		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
+		 * este.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por tres atacantes y el trono por el este.")
+		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlEste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConTresAtacantesYCeldaDelTronoAlEste();
+			comprobarReyRodeado();
+		}
+
+		/**
+		 * Comprueba victoria rodeando al rey con tres piezas atacantes y el trono al
+		 * sur.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		@Test
+		@DisplayName("Victoria si el rey es rodeado por tres atacantes y el trono por el sur.")
+		void comprobarVictoriaRodeandoAlReyConTresPiezasYLaCeldaDelTronoAlSur() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			rodearAlReyConTresAtacantesYCeldaDelTronoAlSur();
+			comprobarReyRodeado();
+		}
+		
+		
+		/**
+		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - - - - -  
+		 * 6 - - - - - - - 
+		 * 5 - - - - - - - 
+		 * 4 - - - - - - -
+		 * 3 - - A R A - -
+		 * 2 - - - - - - - 
+		 * 1 - - - A - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConTresAtacantesYCeldaDelTronoAlNorte() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
+					new int[][] { { 4, 2 }, { 4, 4 }, { 6, 3 }, { 4, 3 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 6, 3, 5, 3));
+		}
+
+		/**
+		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono al
+		 * oeste.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - - - - -  
+		 * 6 - - - - - - - 
+		 * 5 - - - - A - -
+		 * 4 - - - - R - A
+		 * 3 - - - - A - -
+		 * 2 - - - - - - - 
+		 * 1 - - - - - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConTresAtacantesYCeldaDelTronoAlOeste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
+					new int[][] { { 2, 4 }, { 3, 6 }, { 4, 4 }, { 3, 4 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 3, 6, 3, 5));
+		}
+
+		/**
+		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono al este.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - - - - -  
+		 * 6 - - - - - - - 
+		 * 5 - - A - - - -
+		 * 4 A - R - - - -
+		 * 3 - - A - - - -
+		 * 2 - - - - - - - 
+		 * 1 - - - - - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConTresAtacantesYCeldaDelTronoAlEste() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
+					new int[][] { { 2, 2 }, { 3, 0 }, { 4, 2 }, { 3, 2 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 3, 0, 3, 1));
+		}
+
+		
+
+		/**
+		 * Coloca piezas rodeando al rey de tres atacantes y la celda del trono al sur.
+		 * @throws CoordenadasIncorrectasException 
+		 * @throws IllegalArgumentException 
+		 */
+		// @formatter:off
+		/* Partimos de un tablero con las piezas ya colocadas como el que se muestra:	
+		 * 7 - - - A - - -  
+		 * 6 - - - - - - - 
+		 * 5 - - A R A - -
+		 * 4 - - - - - - -
+		 * 3 - - - - - - -
+		 * 2 - - - - - - - 
+		 * 1 - - - - - - -
+		 *   a b c d e f g   
+		 */
+		 // @formatter:on
+		void rodearAlReyConTresAtacantesYCeldaDelTronoAlSur() throws IllegalArgumentException, CoordenadasIncorrectasException {
+			arbitro.colocarPiezas(
+					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.ATACANTE, TipoPieza.REY },
+					new int[][] { { 0, 3 }, { 2, 2 }, { 2, 4 }, { 2, 3 } }, Color.NEGRO);
+			// necesitamos mover para capturar y que pueda conocer el último movimiento
+			arbitro.mover(fabricarJugada(tablero, 0, 3, 1, 3));
 		}
 	}
 

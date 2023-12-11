@@ -40,7 +40,7 @@ import tafl.util.TipoPieza;
  * los métodos.
  * 
  * @author <a href="mailto:rmartico@ubu.es">Raúl Marticorena Sánchez</a>
- * @version 1.0 20230707
+ * @version 1.0.0.1 20231130
  * 
  */
 @DisplayName("Tests sobre Tablero (depende de implementaciones reales de Pieza, Celda)")
@@ -276,6 +276,7 @@ public class TableroTest {
 		 * Comprueba que el tipo de celdas normales son correctas.
 		 * 
 		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
+		 * @version 1.0.0.1
 		 */
 		@Test
 		@DisplayName("Comprobar el tipo de celdas normales.")
@@ -286,8 +287,8 @@ public class TableroTest {
 			List<Coordenada> coordenadas = Arrays.asList(new Coordenada(0, 0), new Coordenada(0, 6),
 					new Coordenada(6, 0), new Coordenada(6, 6), new Coordenada(3, 3));
 			int numeroCeldasNormales = 0;
-			for (int i = 0; i < Tablero.NUMERO_FILAS; i++) {
-				for (int j = 0; j < Tablero.NUMERO_COLUMNAS; j++) {
+			for (int i = 0; i < tablero.consultarNumeroFilas(); i++) { // Changed
+				for (int j = 0; j < tablero.consultarNumeroColumnas(); j++) { // Changed
 					Celda celda = tablero.obtenerCelda(new Coordenada(i, j));
 					if (!coordenadas.contains(celda.consultarCoordenada()) && // si no es una coordenada de provincia o
 																				// trono

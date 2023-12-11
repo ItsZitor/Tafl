@@ -26,11 +26,11 @@ import tafl.util.TipoPieza;
  * 
  * @author <a href="rmartico@ubu.es">Raúl Marticorena</a>
  * @since 1.0
- * @version 1.0
+ * @version 1.0.0.1
  */
 @DisplayName("Tests del arbitro sobre victorias del defensor alcanzando provincias.")
 @Timeout(value = 2, unit = TimeUnit.SECONDS, threadMode = SEPARATE_THREAD) // Time out global para todos los tests salvo los de ciclo de vida
-public abstract class ArbitroVictoriaDefensorTest extends tafl.control.medio.ArbitroAbstractoVictoriaDefensorTest {
+public class ArbitroVictoriaDefensorTest extends tafl.control.medio.ArbitroAbstractoVictoriaDefensorTest {
 
 	/** Generación del árbitro para testing. */
 	@BeforeEach

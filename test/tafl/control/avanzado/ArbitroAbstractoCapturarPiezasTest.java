@@ -313,6 +313,7 @@ public abstract class ArbitroAbstractoCapturarPiezasTest {
 		 * Comprueba que se captura un defensor contra el trono.
 		 * 
 		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
+		 * @version 1.0.0.1
 		 */
 		// @formatter:off
 		/* Rellenaremos el tablero tal y como se muestra:	
@@ -336,7 +337,7 @@ public abstract class ArbitroAbstractoCapturarPiezasTest {
 
 			assertAll("captura una pieza defensora en un solo movimiento contra trono",
 					() -> assertThat("Debería estar vacía la celda con pieza capturada.",
-							tablero.consultarCelda(new Coordenada(4, 3)).estaVacia(), is(true)),
+							tablero.consultarCelda(new Coordenada(3, 4)).estaVacia(), is(true)), // Bug: corregido
 					() -> assertThat("Deberían capturarse una pieza defensora.",
 							tablero.consultarNumeroPiezas(TipoPieza.DEFENSOR), is(0)),
 					() -> assertThat("Debería seguir estando el rey.", tablero.consultarNumeroPiezas(TipoPieza.REY),
@@ -349,6 +350,7 @@ public abstract class ArbitroAbstractoCapturarPiezasTest {
 		 * Comprueba que se captura un atacante contra el trono.
 	     *
 		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
+		 * @version 1.0.0.1
 		 */
 		// @formatter:off
 		/* Rellenaremos el tablero tal y como se muestra:	
@@ -366,13 +368,13 @@ public abstract class ArbitroAbstractoCapturarPiezasTest {
 		void comprobarCapturaAtacanteContraTrono() throws CoordenadasIncorrectasException {
 			// 1 atacante, 1 defensor y 1 rey
 			arbitro.colocarPiezas(new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.DEFENSOR, TipoPieza.REY },
-					new int[][] { { 3, 5 }, { 4, 5 }, { 3, 0 } }, Color.BLANCO);
+					new int[][] { { 3, 4 }, { 4, 5 }, { 3, 0 } }, Color.BLANCO); // Bug: corregido valor númerico {3, 5} por {3,4}
 			arbitro.mover(fabricarJugada(tablero, 4, 5, 3, 5)); // defensor
 			arbitro.realizarCapturasTrasMover(); // elimina al atacante
 
 			assertAll("captura una pieza atacante en un solo movimiento contra trono",
 					() -> assertThat("Debería estar vacía la celda con pieza capturada.",
-							tablero.consultarCelda(new Coordenada(4, 3)).estaVacia(), is(true)),
+							tablero.consultarCelda(new Coordenada(3, 4)).estaVacia(), is(true)), // Bug: corregido
 					() -> assertThat("Deberían capturarse una pieza atacante.",
 							tablero.consultarNumeroPiezas(TipoPieza.ATACANTE), is(0)),
 					() -> assertThat("Debería seguir estando el rey.", tablero.consultarNumeroPiezas(TipoPieza.REY),
@@ -765,6 +767,7 @@ public abstract class ArbitroAbstractoCapturarPiezasTest {
 		 * entre dos defensores.
 		 * 
 		 * @throws CoordenadasIncorrectasException si una coordenada está fuera del tablero
+		 * @version 1.0.0.1
 		 */
 		// @formatter:off
 		/* Rellenaremos el tablero tal y como se muestra:	
@@ -785,7 +788,7 @@ public abstract class ArbitroAbstractoCapturarPiezasTest {
 					new TipoPieza[] { TipoPieza.ATACANTE, TipoPieza.ATACANTE,
 					TipoPieza.DEFENSOR, TipoPieza.DEFENSOR, TipoPieza.DEFENSOR, TipoPieza.DEFENSOR, TipoPieza.DEFENSOR, TipoPieza.REY },
 					new int[][] { { 4, 1 }, {6, 4}, {0, 2}, { 3, 0 }, 
-						{ 3, 2 }, { 3, 3 }, {6, 3}, {6, 5} }, Color.NEGRO);
+						{ 3, 2 }, { 6, 5 }, {6, 3}, {3, 3} }, Color.NEGRO);
 			arbitro.mover(fabricarJugada(tablero, 4, 1, 3, 1)); // atacante se mueve entre dos defensores
 			arbitro.realizarCapturasTrasMover(); // intentar eliminar piezas
 			arbitro.cambiarTurno(); // no debería influir
@@ -802,7 +805,7 @@ public abstract class ArbitroAbstractoCapturarPiezasTest {
 					() -> assertThat("Debería seguir estando el rey.", tablero.consultarNumeroPiezas(TipoPieza.REY),
 							is(1)),
 					() -> assertThat("Debería estar el mismo número de piezas defensoras.",
-							tablero.consultarNumeroPiezas(TipoPieza.DEFENSOR), is(5)));
+							tablero.consultarNumeroPiezas(TipoPieza.DEFENSOR), is(5))); 
 		}
 		
 		/**
