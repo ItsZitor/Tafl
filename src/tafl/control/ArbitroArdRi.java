@@ -18,6 +18,7 @@ public class ArbitroArdRi {
         if (tablero == null) {
             throw new IllegalArgumentException("El tablero no puede ser nulo.");
         }
+        
         this.tablero = tablero;
         this.numeroJugada = 0;
     }
